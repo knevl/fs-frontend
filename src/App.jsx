@@ -6,11 +6,11 @@ import AlertModal from './components/ui/elements/AlertModal';
 function App() {
   const score = useGameStore((state) => state.score);
   return (
-    <div className='min-h-screen bg-background text-foreground flex flex-col items-center p-4'>
-      <Game />
-      <div className='mt-6'>
-        <AlertModal />
+    <div className='container'>
+      <div>
+        <h1>Детский финансовый симулятор</h1>
       </div>
+      <Game />
     </div>
   );
 }

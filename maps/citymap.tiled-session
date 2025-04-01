@@ -1,0 +1,91 @@
+{
+    "activeFile": "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx": {
+            "scale": 1.0845833333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 399.69266231271604,
+                "y": 361.890126776796
+            }
+        },
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/tilemap_packed.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/tilemap_packed1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "city..tmx": {
+            "scale": 1.406,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.0711237553343,
+                "y": 240.04267425320057
+            }
+        },
+        "city.tmx": {
+            "expandedGroupLayers": [
+                11,
+                17,
+                30,
+                27,
+                24,
+                15,
+                13,
+                33
+            ],
+            "scale": 1.5,
+            "selectedLayer": 32,
+            "viewCenter": {
+                "x": 377.66666666666663,
+                "y": 234.33333333333337
+            }
+        },
+        "tile_0000.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilemap_packed.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
+        },
+        "tilemap_packed1.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps",
+    "last.imagePath": "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps",
+    "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
+    "openFiles": [
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx"
+    ],
+    "project": "citymap.tiled-project",
+    "recentFiles": [
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx",
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/tilemap_packed.tsx",
+        "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/tilemap_packed1.tsx",
+        "city.tmx",
+        "city..tmx",
+        "tilemap_packed1.tsx",
+        "tilemap_packed.tsx",
+        "tile_0000.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "city.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "city..tmx": {
+            "scale": 1.406,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.0711237553343,
+                "y": 240.04267425320057
+            }
+        },
+        "city.tmx": {
+            "expandedGroupLayers": [
+                13,
+                15,
+                17
+            ],
+            "scale": 1.5,
+            "selectedLayer": 35,
+            "viewCenter": {
+                "x": 377.66666666666663,
+                "y": 234.33333333333337
+            }
+        },
+        "tile_0000.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilemap_packed.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
+        },
+        "tilemap_packed1.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/user/Documents/Financial-Simulator/fs-frontend/maps",
+    "last.imagePath": "C:/Users/user/Downloads/kenney_roguelike-modern-city/Tilemap",
+    "map.height": 30,
+    "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+        "city.tmx"
+    ],
+    "project": "citymap.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "city.tmx",
+        "city..tmx",
+        "tilemap_packed1.tsx",
+        "tilemap_packed.tsx",
+        "tile_0000.tsx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.type": 0
+}
