@@ -9,11 +9,11 @@
             "scaleInDock": 1
         },
         "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx": {
-            "scale": 1.0845833333333332,
+            "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 351.2869765655014,
-                "y": 244.79446792162892
+                "x": 438,
+                "y": 244.99999999999997
             }
         },
         "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx#tilemap_packed": {

@@ -69,7 +69,6 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
 }
 #phaser-game {
   display: flex;
@@ -195,4 +194,32 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+@font-face {
+  font-family: 'Tiny5-Regular';
+  src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+.custom-title {
+  font-family: 'Tiny5-Regular', sans-serif;
+  color: #55557f;
+  font-size: xx-large;
+  transition: all 0.3s ease;
+}
+.custom-title:hover {
+  color: #3a3a5c; /* Темнее при наведении */
+  transform: scale(1.05); /* Легкое увеличение */
+}
+.app-background {
+  background-image: url('/images/background3.png'); /* Путь к изображению */
+  background-size: cover; /* Растягивает изображение на весь контейнер */
+  background-position: center; /* Центрирует изображение */
+  background-repeat: no-repeat; /* Убирает повторение */
+  min-height: 100vh; /* Устанавливает минимальную высоту на весь экран */
+}
+.left-sidebar,
+.right-sidebar {
+  width: 200px; /* Фиксированная ширина боковых панелей */
+  text-align: center; /* Центрируем текст внутри */
 }
