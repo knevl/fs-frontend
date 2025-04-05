@@ -64,17 +64,50 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+.container-game__right {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.timer {
+  /* Основные параметры */
+  border-radius: 8px; /* Закругленные края */
+  border: 2px solid #989aaf; /* Внешняя обводка */
+  padding: 0.6em 1.2em; /* Внутренние отступы, как у кнопки */
+  font-family: inherit; /* Наследуем шрифт */
+  font-size: large; /* Оставляем твой размер текста */
+  background-color: #dadce7; /* Нижний цвет фона как базовый */
+  position: relative; /* Для псевдоэлемента фона */
+  overflow: hidden; /* Убираем вылезание элементов */
+  display: flex; /* Оставляем flex для структуры */
+  flex-direction: column; /* Оставляем вертикальное расположение */
+  gap: 0.5rem; /* Уменьшаем gap для компактности */
+  align-items: center; /* Центрируем содержимое */
+  color: #333; /* Цвет текста для читаемости */
+
+  /* Внутренняя обводка и тень */
+  box-shadow: inset 0 0 0 2px #ffffff,
+    /* Внутренняя белая обводка */ 0 4px 0 0 #666880; /* Четкая тень снизу */
+}
+
+/* Стили для span внутри таймера */
+.timer span {
+  font-weight: 700; /* Делаем время жирнее для контраста */
+  color: #1a1a1a; /* Темный цвет для времени */
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5rem;
 }
 #phaser-game {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
   transform: scale(1.2);
 }
 h1 {
@@ -82,23 +115,42 @@ h1 {
   line-height: 1.1;
   color: #0b0b0bcd;
 }
+.container-game {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  width: 100%;
+}
+.button {
+  /* Основные параметры кнопки */
+  border-radius: 8px; /* Закругленные края */
+  border: 2px solid #989aaf; /* Внешняя обводка */
+  padding: 0.6em 1.2em; /* Внутренние отступы */
+  font-size: 1em; /* Размер шрифта */
+  font-weight: 500; /* Толщина шрифта */
+  font-family: inherit; /* Наследуем шрифт */
+  cursor: pointer; /* Курсор при наведении */
+  position: relative; /* Для позиционирования фона и тени */
+  overflow: hidden; /* Убираем вылезание элементов за границы */
+  background-color: #dadce7; /* Нижний цвет фона как базовый */
+  color: #333; /* Цвет текста (можно настроить под твой дизайн) */
+  transition: all 0.25s ease; /* Плавный переход для эффектов */
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  /* Внутренняя белая обводка через inset тень */
+  box-shadow: inset 0 0 0 2px #ffffff,
+    /* Внутренняя обводка */ 0 4px 0 0 #666880; /* Тень только снизу, четкая */
 }
-button:hover {
-  border-color: #646cff;
+
+/* Эффект при наведении */
+.button:hover {
+  border-color: #646cff; /* Меняем цвет внешней обводки */
+  box-shadow: inset 0 0 0 2px #ffffff,
+    /* Сохраняем внутреннюю обводку */ 0 6px 0 0 #666880; /* Увеличиваем тень снизу для эффекта нажатия */
 }
-button:focus,
-button:focus-visible {
+
+/* Фокус */
+.button:focus,
+.button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 

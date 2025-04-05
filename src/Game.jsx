@@ -22,7 +22,7 @@ const Game = () => {
     };
   }, []);
 
-  return <div id='phaser-game' className='w-full md:w-3/4 mx-auto my-10'></div>;
+  return <div id='phaser-game'></div>;
 };
 
 export default Game;

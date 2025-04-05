@@ -22,4 +22,5 @@ export function preload() {
   this.load.image('player_right_1', 'images/characters/player_right_1.png');
   this.load.image('player_right_2', 'images/characters/player_right_2.png');
   this.load.image('coin', 'images/coin.png');
+  this.load.image('closeIcon', 'images/check_square_grey_cross.png');
 }

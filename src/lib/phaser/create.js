@@ -197,47 +197,99 @@ export function create() {
       // Очищаем предыдущее модальное окно, если оно есть
       this.modalGroup.clear(true, true);
 
-      // Фон модального окна (полупрозрачный черный прямоугольник)
+      // Получаем центр экрана
+      const centerX = this.cameras.main.centerX;
+      const centerY = this.cameras.main.centerY;
+
+      // Создаем графический объект для фона модального окна
+      const graphics = this.add.graphics();
+
+      // Параметры стиля, взятые из CSS кнопки
+      const modalWidth = 300;
+      const modalHeight = 200;
+      const borderRadius = 8; // Закругленные углы
+      const borderWidth = 2; // Толщина обводки
+      const shadowOffset = 4; // Смещение тени вниз
+      const halfWidth = modalWidth / 2;
+      const halfHeight = modalHeight / 2;
+
+      // Рисуем тень снизу (как в CSS: 0 4px 0 0 #666880)
+      graphics.fillStyle(0x666880, 1);
+      graphics.fillRoundedRect(
+        centerX - halfWidth,
+        centerY - halfHeight + shadowOffset,
+        modalWidth,
+        modalHeight,
+        borderRadius
+      );
+
+      // Рисуем основной фон (как background-color: #dadce7)
+      graphics.fillStyle(0xdadce7, 1);
+      graphics.fillRoundedRect(
+        centerX - halfWidth,
+        centerY - halfHeight,
+        modalWidth,
+        modalHeight,
+        borderRadius
+      );
+
+      // Рисуем внешнюю обводку (как border: 2px solid #989aaf)
+      graphics.lineStyle(borderWidth, 0x989aaf, 1);
+      graphics.strokeRoundedRect(
+        centerX - halfWidth,
+        centerY - halfHeight,
+        modalWidth,
+        modalHeight,
+        borderRadius
+      );
+
+      // Рисуем внутреннюю белую обводку (как box-shadow: inset 0 0 0 2px #ffffff)
+      graphics.lineStyle(borderWidth, 0xffffff, 1);
+      graphics.strokeRoundedRect(
+        centerX - halfWidth + borderWidth,
+        centerY - halfHeight + borderWidth,
+        modalWidth - 2 * borderWidth,
+        modalHeight - 2 * borderWidth,
+        borderRadius - borderWidth
+      );
+
+      // Делаем фон интерактивным, чтобы блокировать клики по игре
       const modalBg = this.add.rectangle(
-        this.cameras.main.centerX,
-        this.cameras.main.centerY,
-        300,
-        200,
-        0xffffff,
-        0.8
+        centerX,
+        centerY,
+        modalWidth,
+        modalHeight
       );
-      modalBg.setOrigin(0.5); // Центрируем по координатам
-      modalBg.setInteractive(); // Блокируем взаимодействие с фоном игры
+      modalBg.setOrigin(0.5);
+      modalBg.setInteractive();
 
-      // Текст модального окна
-      const modalText = this.add.text(
-        Math.round(this.cameras.main.centerX),
-        Math.round(this.cameras.main.centerY),
-        message,
-        {
-          fontSize: '24px',
-          color: '#000000',
-          align: 'center',
-          fontFamily: 'Arial',
-          wordWrap: { width: 280 }, // Перенос текста, если он длинный
-        }
-      );
-      modalText.setOrigin(0.5);
+      // Добавляем графику и фон в группу
+      this.modalGroup.addMultiple([graphics, modalBg]);
 
-      // Кнопка закрытия
-      const closeButton = this.add.text(400, 300, 'Закрыть', {
-        fontSize: '24px',
-        color: '#ff0000',
+      // Текст модального окна (цвет текста как в CSS: #333)
+      const modalText = this.add.text(centerX, centerY, message, {
+        fontSize: '16px',
+        color: '#333',
+        align: 'center',
         fontFamily: 'Arial',
+        wordWrap: { width: 280 },
       });
+      modalText.setOrigin(0.5);
+      this.modalGroup.add(modalText);
+
+      // Кнопка закрытия как изображение в правом верхнем углу
+      const closeButton = this.add.image(
+        centerX + halfWidth - 20, // Справа с отступом 20px от края
+        centerY - halfHeight + 20, // Сверху с отступом 20px от края
+        'closeIcon' // Ключ изображения из preload
+      );
       closeButton.setOrigin(0.5);
+      closeButton.setScale(0.5); // Уменьшаем размер, если нужно
       closeButton.setInteractive();
       closeButton.on('pointerdown', () => {
-        this.modalGroup.clear(true, true); // Удаляем модальное окно при клике
+        this.modalGroup.clear(true, true); // Закрываем модальное окно
       });
-
-      // Добавляем все элементы в группу
-      this.modalGroup.addMultiple([modalBg, modalText, closeButton]);
+      this.modalGroup.add(closeButton);
     };
 
     // Обработка нажатия пробела
