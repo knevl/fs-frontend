@@ -11,8 +11,8 @@ export const config = {
     },
   },
   scene: {
-    preload: null, // Будет задано в Game.jsx
-    create: null, // Будет задано в Game.jsx
+    preload: null, // задано в Game.jsx
+    create: null, // задано в Game.jsx
   },
   //pixelArt: true,
 };
