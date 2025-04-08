@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -71,30 +71,26 @@ a:hover {
   justify-content: space-between;
 }
 .timer {
-  /* Основные параметры */
-  border-radius: 8px; /* Закругленные края */
-  border: 2px solid #989aaf; /* Внешняя обводка */
-  padding: 0.6em 1.2em; /* Внутренние отступы, как у кнопки */
-  font-family: inherit; /* Наследуем шрифт */
-  font-size: large; /* Оставляем твой размер текста */
-  background-color: #dadce7; /* Нижний цвет фона как базовый */
-  position: relative; /* Для псевдоэлемента фона */
-  overflow: hidden; /* Убираем вылезание элементов */
-  display: flex; /* Оставляем flex для структуры */
-  flex-direction: column; /* Оставляем вертикальное расположение */
-  gap: 0.5rem; /* Уменьшаем gap для компактности */
-  align-items: center; /* Центрируем содержимое */
-  color: #333; /* Цвет текста для читаемости */
+  border-radius: 8px;
+  border: 2px solid #989aaf;
+  padding: 0.6em 1.2em;
+  font-family: inherit;
+  font-size: large;
+  background-color: #dadce7;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  color: #333;
 
-  /* Внутренняя обводка и тень */
-  box-shadow: inset 0 0 0 2px #ffffff,
-    /* Внутренняя белая обводка */ 0 4px 0 0 #666880; /* Четкая тень снизу */
+  box-shadow: inset 0 0 0 2px #ffffff, 0 4px 0 0 #666880;
 }
 
-/* Стили для span внутри таймера */
 .timer span {
-  font-weight: 700; /* Делаем время жирнее для контраста */
-  color: #1a1a1a; /* Темный цвет для времени */
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
 .container {
@@ -111,8 +107,8 @@ a:hover {
   transform: scale(1.2);
 }
 h1 {
-  font-size: 3.8em;
-  line-height: 1.1;
+  font-size: xxx-large;
+  line-height: 0.5;
   color: #0b0b0bcd;
 }
 .container-game {
@@ -122,38 +118,103 @@ h1 {
   width: 100%;
 }
 .button {
-  /* Основные параметры кнопки */
-  border-radius: 8px; /* Закругленные края */
-  border: 2px solid #989aaf; /* Внешняя обводка */
-  padding: 0.6em 1.2em; /* Внутренние отступы */
-  font-size: 1em; /* Размер шрифта */
-  font-weight: 500; /* Толщина шрифта */
-  font-family: inherit; /* Наследуем шрифт */
-  cursor: pointer; /* Курсор при наведении */
-  position: relative; /* Для позиционирования фона и тени */
-  overflow: hidden; /* Убираем вылезание элементов за границы */
-  background-color: #dadce7; /* Нижний цвет фона как базовый */
-  color: #333; /* Цвет текста (можно настроить под твой дизайн) */
-  transition: all 0.25s ease; /* Плавный переход для эффектов */
+  border-radius: 8px;
+  border: 2px solid #989aaf;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #dadce7;
+  color: #333;
+  transition: all 0.25s ease;
 
-  /* Внутренняя белая обводка через inset тень */
-  box-shadow: inset 0 0 0 2px #ffffff,
-    /* Внутренняя обводка */ 0 4px 0 0 #666880; /* Тень только снизу, четкая */
+  box-shadow: inset 0 0 0 2px #ffffff, 0 4px 0 0 #666880;
 }
 
-/* Эффект при наведении */
 .button:hover {
-  border-color: #646cff; /* Меняем цвет внешней обводки */
-  box-shadow: inset 0 0 0 2px #ffffff,
-    /* Сохраняем внутреннюю обводку */ 0 6px 0 0 #666880; /* Увеличиваем тень снизу для эффекта нажатия */
+  border-color: #646cff;
+  box-shadow: inset 0 0 0 2px #ffffff, 0 6px 0 0 #666880;
 }
 
-/* Фокус */
 .button:focus,
 .button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.button-blue {
+  border-radius: 8px;
+  border: 2px solid #167da8;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #1c9fd7;
+  color: #333;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 0 0 2px #36bdf7, 0 4px 0 0 #146587;
+}
 
+.button-blue:hover {
+  border-color: #646cff;
+  box-shadow: inset 0 0 0 2px #36bdf7, 0 6px 0 0 #146587;
+}
+
+.button-blue:focus,
+.button-blue:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.button-green {
+  border-radius: 8px;
+  border: 2px solid #029357;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #16bb77;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 0 0 2px #2fd792, 0 4px 0 0 #046d41;
+}
+
+.button-green:hover {
+  border-color: #646cff;
+  box-shadow: inset 0 0 0 2px #2fd792, 0 6px 0 0 #046d41;
+}
+
+.button-green:focus,
+.button-green:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.input-code {
+  border-radius: 8px;
+  border: 2px solid #029357;
+  padding: 0.6em 0;
+  font-size: 1.5em;
+  font-family: inherit;
+  background-color: #dadce7;
+  color: #333;
+  box-shadow: inset 0 0 0 2px #2fd792;
+  width: 180px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+}
+
+.input-code:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.input-code:focus::placeholder {
+  color: transparent;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -198,7 +259,7 @@ h1 {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@theme inline {
+/* @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -234,16 +295,16 @@ h1 {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
+} */
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
   }
-}
+} */
 @font-face {
   font-family: 'Tiny5-Regular';
   src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
@@ -252,23 +313,38 @@ h1 {
 
 .custom-title {
   font-family: 'Tiny5-Regular', sans-serif;
-  color: #55557f;
-  font-size: xx-large;
+  color: #146587;
+  font-size: xxx-large;
   transition: all 0.3s ease;
 }
 .custom-title:hover {
-  color: #3a3a5c; /* Темнее при наведении */
-  transform: scale(1.05); /* Легкое увеличение */
+  color: #03384f;
+  transform: scale(1.05);
 }
 .app-background {
-  background-image: url('/images/background3.png'); /* Путь к изображению */
-  background-size: cover; /* Растягивает изображение на весь контейнер */
-  background-position: center; /* Центрирует изображение */
-  background-repeat: no-repeat; /* Убирает повторение */
-  min-height: 100vh; /* Устанавливает минимальную высоту на весь экран */
+  background-image: url('/images/background3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 .left-sidebar,
 .right-sidebar {
-  width: 200px; /* Фиксированная ширина боковых панелей */
-  text-align: center; /* Центрируем текст внутри */
+  width: 200px;
+  text-align: center;
+}
+.lobby-container {
+  background-color: #dadce7;
+  border: 2px solid #989aaf;
+  box-shadow: inset 0 0 0 2px #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 600px;
+}
+.player-tile {
+  background-color: #dadce7;
+  border: 2px solid #989aaf;
+  box-shadow: inset 0 0 0 2px #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
 }
