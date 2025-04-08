@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCopy } from 'react-icons/fa';
 import Modal from '../components/ui/elements/Modal';
 import ConfirmStartContent from '../components/modals/ConfirmStartContent';
+import { useNavigate } from 'react-router-dom';
 
 function CreatorLobby() {
   const [startCapital, setStartCapital] = useState(2500);
@@ -12,6 +13,7 @@ function CreatorLobby() {
   ]);
   const gameCode = 'АААААА';
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleRemove = (index) => {
     setPlayers(players.filter((_, i) => i !== index));
@@ -27,8 +29,8 @@ function CreatorLobby() {
     alert('Код скопирован');
   };
 
-  const handleStartGame = () => {
-    console.log('Игра начата!');
+  const handleGame = () => {
+    navigate('/game');
   };
 
   return (
@@ -153,7 +155,7 @@ function CreatorLobby() {
       >
         <ConfirmStartContent
           onCancel={() => setIsConfirmOpen(false)}
-          onConfirm={handleStartGame}
+          onConfirm={handleGame}
         />
       </Modal>
     </div>

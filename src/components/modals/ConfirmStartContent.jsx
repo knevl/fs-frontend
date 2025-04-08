@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ConfirmStartContent = ({ onCancel, onConfirm }) => (
+const ConfirmStartContent = ({ onConfirm }) => (
   <div className='text-center'>
     <p className='mb-4'>
       Убедитесь, что все игроки зашли в лобби. Вы уверены, что хотите начать

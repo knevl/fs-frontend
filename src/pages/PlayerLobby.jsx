@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaCopy } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function PlayerLobby() {
   const players = [
@@ -8,9 +9,15 @@ function PlayerLobby() {
   ];
   const gameCode = 'АААААА';
 
+  const navigate = useNavigate();
+
   const handleCopyCode = () => {
     navigator.clipboard.writeText(gameCode);
     alert('Код скопирован');
+  };
+
+  const handleGame = () => {
+    navigate('/game');
   };
 
   return (

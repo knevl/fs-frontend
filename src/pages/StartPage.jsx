@@ -40,12 +40,10 @@ function StartPage() {
         </button>
       </div>
 
-      {/* Заголовок по центру */}
       <div className='flex-grow flex items-center justify-center'>
         <h1 className='custom-title'>ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР</h1>
       </div>
 
-      {/* Нижний блок */}
       <div className='pb-8 flex flex-col items-center space-y-4'>
         <button className='button-green' onClick={handleCreateGame}>
           Создать новую игру
