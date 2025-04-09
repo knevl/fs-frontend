@@ -31,7 +31,7 @@ function App() {
           element={
             <div className='container app-background'>
               <div>
-                <h1 className='custom-title'>ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР</h1>
+                <h1 className='custom-title '>ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР</h1>
               </div>
 
               <div className='container-game'>

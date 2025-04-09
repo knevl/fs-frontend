@@ -6,6 +6,11 @@ function PlayerLobby() {
   const players = [
     { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
     { type: 'bot', name: 'Бот 1' },
+    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
+    { type: 'bot', name: 'Бот 1' },
+    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
+    { type: 'bot', name: 'Бот 1' },
+    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
   ];
   const gameCode = 'АААААА';
 
@@ -22,13 +27,13 @@ function PlayerLobby() {
 
   return (
     <div className='container relative min-h-screen app-background flex flex-col'>
-      <h1 className='custom-title'>ИГРОВОЕ ЛОББИ</h1>
+      <h1 className='custom-title '>ИГРОВОЕ ЛОББИ</h1>
 
       <div className='flex space-x-10'>
         {/* таблица игроков */}
-        <div className='flex-1 flex flex-col'>
+        <div className=' flex flex-col'>
           <h2 className='text-xl font-semibold mb-4'>Участники игры</h2>
-          <div className='flex-1 overflow-y-auto mb-4 max-h-110'>
+          <div className=' overflow-y-auto  max-h-83'>
             <ul className='space-y-2'>
               {players.map((player, index) => (
                 <li

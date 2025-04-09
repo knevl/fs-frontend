@@ -41,7 +41,9 @@ function StartPage() {
       </div>
 
       <div className='flex-grow flex items-center justify-center'>
-        <h1 className='custom-title'>ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР</h1>
+        <h1 className='custom-title custom-title--margin'>
+          ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР
+        </h1>
       </div>
 
       <div className='pb-8 flex flex-col items-center space-y-4'>

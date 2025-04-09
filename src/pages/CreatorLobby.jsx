@@ -44,7 +44,7 @@ function CreatorLobby() {
           <h2 className='text-xl font-semibold mb-4'>
             Подключенные игроки и боты
           </h2>
-          <div className='flex-1 overflow-y-auto mb-4 max-h-110'>
+          <div className='flex-1 overflow-y-auto mb-8 max-h-103'>
             <ul className='space-y-2'>
               {players.map((player, index) => (
                 <li
