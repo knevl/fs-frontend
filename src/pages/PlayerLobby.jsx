@@ -6,11 +6,6 @@ function PlayerLobby() {
   const players = [
     { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
     { type: 'bot', name: 'Бот 1' },
-    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
-    { type: 'bot', name: 'Бот 1' },
-    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
-    { type: 'bot', name: 'Бот 1' },
-    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
   ];
   const gameCode = 'АААААА';
 
