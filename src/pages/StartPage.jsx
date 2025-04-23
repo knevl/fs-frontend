@@ -14,7 +14,7 @@ function StartPage() {
 
   // Обработка ввода кода
   const handleCodeChange = (e) => {
-    const value = e.target.value.toUpperCase().replace(/[^А-Я0-9]/g, '');
+    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (value.length <= 6) {
       setGameCode(value);
     }

@@ -10,9 +10,9 @@
         },
         "C:/Users/user/Documents/Financial-Simulator/fs-frontend/public/maps/city.tmx": {
             "scale": 1.5,
-            "selectedLayer": 3,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 438,
+                "x": 382,
                 "y": 244.99999999999997
             }
         },

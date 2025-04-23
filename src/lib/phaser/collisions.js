@@ -1,4 +1,4 @@
-export function setupCollisions(scene, map, player) {
+export function setupCollisions(scene, map, player, entities) {
   const collisionsLayer = map.getObjectLayer('Коллизии');
   if (collisionsLayer) {
     const collisionGroup = scene.physics.add.staticGroup();
@@ -20,5 +20,6 @@ export function setupCollisions(scene, map, player) {
       }
     });
     scene.physics.add.collider(player, collisionGroup);
+    scene.physics.add.collider(player, entities);
   }
 }
