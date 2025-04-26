@@ -14,5 +14,5 @@ export const config = {
     preload: null, // задано в Game.jsx
     create: null, // задано в Game.jsx
   },
-  //pixelArt: true,
+  pixelArt: false,
 };

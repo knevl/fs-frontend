@@ -11,7 +11,6 @@ export function create() {
   const player = createPlayer(this);
   setupPlayerControls(this, player);
 
-  // Создаем NPC с разными скинами
   const npcs = [
     {
       skin: 'npc',
@@ -84,7 +83,6 @@ export function create() {
     },
   ].map(({ skin, path, x, y }) => createCar(this, x, y, skin, path));
 
-  // Объединяем NPC и машины для коллизий
   const allEntities = [...npcs, ...cars];
   setupCollisions(this, map, player, allEntities);
   setupInteractions(this, map, player);

@@ -1,16 +1,15 @@
 export function createNPC(scene, x, y, skin, path) {
-  // Создаем спрайт с начальной текстурой для указанного скина
   const npc = scene.physics.add.sprite(x, y, `${skin}_front_1`);
   npc.setScale(1.2);
   npc.setCollideWorldBounds(true);
 
-  // Сохраняем маршрут и параметры
+  // маршрут и параметры
   npc.path = path;
   npc.currentPointIndex = 0;
   npc.speed = 30;
-  npc.skin = skin; // Сохраняем скин для использования в анимациях
+  npc.skin = skin;
 
-  // Создаем анимации для указанного скина
+  // анимации
   scene.anims.create({
     key: `${skin}_left_walk`,
     frames: [{ key: `${skin}_left_1` }, { key: `${skin}_left_2` }],
@@ -36,7 +35,7 @@ export function createNPC(scene, x, y, skin, path) {
     repeat: -1,
   });
 
-  // Логика движения NPC
+  // логика движений
   npc.update = function () {
     const targetPoint = path[npc.currentPointIndex];
     const dx = targetPoint.x - npc.x;
@@ -54,15 +53,13 @@ export function createNPC(scene, x, y, skin, path) {
       Math.sin(angle) * npc.speed
     );
 
-    // Воспроизводим анимацию в зависимости от направления
+    // воспроизведение аним
     if (Math.abs(dx) > Math.abs(dy)) {
       npc.anims.play(dx > 0 ? `${skin}_right_walk` : `${skin}_left_walk`, true);
     } else {
       npc.anims.play(dy > 0 ? `${skin}_front_walk` : `${skin}_back_walk`, true);
     }
   };
-
-  // Добавляем обновление в цикл сцены
   scene.events.on('update', () => {
     npc.update();
   });
@@ -95,7 +92,7 @@ export function createCar(scene, x, y, skin, path) {
       Math.sin(angle) * car.speed
     );
 
-    // Меняем текстуру в зависимости от направления
+    //текстура
     if (Math.abs(dx) > Math.abs(dy)) {
       car.setTexture(dx > 0 ? `${skin}_right` : `${skin}_left`);
     } else {

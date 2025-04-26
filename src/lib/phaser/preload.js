@@ -37,7 +37,7 @@ export function preload() {
   this.load.image('npc_right_stay', 'images/characters/npc_right_stay.png');
   this.load.image('npc_right_1', 'images/characters/npc_right_1.png');
   this.load.image('npc_right_2', 'images/characters/npc_right_2.png');
-  //npc2
+  //npc1
   this.load.image('npc1_front_stay', 'images/characters/npc1_fron_stay.png');
   this.load.image('npc1_front_1', 'images/characters/npc1_front_1.png');
   this.load.image('npc1_front_2', 'images/characters/npc1_front_2.png');
