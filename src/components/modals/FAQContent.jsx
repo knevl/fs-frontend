@@ -75,12 +75,11 @@ const FAQContent = () => {
     },
   ];
   const handleToggle = (index) => {
-    // Если секция уже открыта, закрываем её; иначе открываем новую
     setOpenSection(openSection === index ? null : index);
   };
   return (
     <div>
-      <p className='mb-4'>Часто задаваемые вопросы:</p>
+      <p className='mb-4'>Ответы на часто задаваемые вопросы:</p>
       <div className='space-y-2'>
         {sections.map((section, index) => (
           <AccordionItem

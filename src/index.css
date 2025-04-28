@@ -147,7 +147,7 @@ h1 {
 }
 
 .button:hover {
-  border-color: #646cff;
+  border-color: #a8a8a8;
   box-shadow: inset 0 0 0 2px #ffffff, 0 6px 0 0 #666880;
 }
 
@@ -196,11 +196,51 @@ h1 {
 }
 
 .button-green:hover {
-  border-color: #646cff;
+  border-color: #64ff73;
   box-shadow: inset 0 0 0 2px #2fd792, 0 6px 0 0 #046d41;
 }
 
 .button-green:focus,
+.button-green:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.back-button {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #213547;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.back-button:hover {
+  color: #07141f;
+}
+
+.button-red {
+  border-radius: 8px;
+  border: 2px solid #cd0b2a;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #ee2747;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 0 0 2px #ff627b, 0 4px 0 0 #871023;
+}
+
+.button-red:hover {
+  border-color: #ff3030;
+  box-shadow: inset 0 0 0 2px #ff627b, 0 6px 0 0 #871023;
+}
+
+.button-red:focus,
 .button-green:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
@@ -226,6 +266,13 @@ h1 {
 
 .input-code:focus::placeholder {
   color: transparent;
+}
+.error-message {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+.error-message.hidden {
+  opacity: 0;
 }
 @media (prefers-color-scheme: light) {
   :root {

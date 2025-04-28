@@ -1,19 +1,23 @@
-import React from 'react';
-import { FaCopy } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaCopy, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../components/ui/elements/Modal';
+import ReturnStartPagePlayerContent from '../components/modals/ReturnStartPagePlayerContent';
+import { toast, Toaster } from 'react-hot-toast';
 
 function PlayerLobby() {
   const players = [
     { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
     { type: 'bot', name: 'Бот 1' },
   ];
-  const gameCode = 'АААААА';
+  const gameCode = 'AAAAAA';
 
   const navigate = useNavigate();
+  const [isReturnStartPagePlayer, setIsReturnStartPagePlayer] = useState(false);
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(gameCode);
-    alert('Код скопирован');
+    toast.success('Код скопирован!');
   };
 
   const handleGame = () => {
@@ -22,6 +26,14 @@ function PlayerLobby() {
 
   return (
     <div className='container relative min-h-screen app-background flex flex-col'>
+      <Toaster position='top-right' reverseOrder={false} />
+      <button
+        onClick={() => setIsReturnStartPagePlayer(true)}
+        className='back-button absolute top-4 left-4 flex items-center space-x-2'
+      >
+        <FaArrowLeft size={24} />
+        <span>Назад</span>
+      </button>
       <h1 className='custom-title '>ИГРОВОЕ ЛОББИ</h1>
 
       <div className='flex space-x-10'>
@@ -66,6 +78,15 @@ function PlayerLobby() {
       <p className='text-xl font-semibold text-gray-800'>
         Ожидайте начала игры...
       </p>
+      <Modal
+        isOpen={isReturnStartPagePlayer}
+        onClose={() => setIsReturnStartPagePlayer(false)}
+        title='Выход из игры'
+      >
+        <ReturnStartPagePlayerContent
+          onClose={() => setIsReturnStartPagePlayer(false)}
+        />
+      </Modal>
     </div>
   );
 }

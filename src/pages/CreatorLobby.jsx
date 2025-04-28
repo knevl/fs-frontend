@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { FaCopy } from 'react-icons/fa';
+import { FaCopy, FaArrowLeft } from 'react-icons/fa';
 import Modal from '../components/ui/elements/Modal';
 import ConfirmStartContent from '../components/modals/ConfirmStartContent';
+import ReturnStartPageContent from '../components/modals/ReturnStartPageContent';
 import { useNavigate } from 'react-router-dom';
+import { toast, Toaster } from 'react-hot-toast';
 
 function CreatorLobby() {
   const [startCapital, setStartCapital] = useState(2500);
   const [gameDuration, setGameDuration] = useState('short');
   const [players, setPlayers] = useState([
-    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
+    { type: 'player', name: 'Игрок 1' },
+    { type: 'player', name: 'Игрок 2' },
     { type: 'bot', name: 'Бот 1' },
   ]);
-  const gameCode = 'АААААА';
+  const gameCode = 'aaaaaa';
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isReturnStartPage, setIsReturnStartPage] = useState(false);
   const navigate = useNavigate();
 
   const handleRemove = (index) => {
@@ -26,7 +30,7 @@ function CreatorLobby() {
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(gameCode);
-    alert('Код скопирован');
+    toast.success('Код скопирован!');
   };
 
   const handleGame = () => {
@@ -35,11 +39,18 @@ function CreatorLobby() {
 
   return (
     <div className='container relative min-h-screen app-background flex flex-col'>
+      <Toaster position='top-right' reverseOrder={false} />
+      <button
+        onClick={() => setIsReturnStartPage(true)}
+        className='back-button absolute top-4 left-4 flex items-center space-x-2'
+      >
+        <FaArrowLeft size={24} />
+        <span>Назад</span>
+      </button>
       <h1 className='custom-title'>ИГРОВОЕ ЛОББИ</h1>
 
-      {/* Основной контейнер: две вертикальные колонки */}
       <div className='flex space-x-10 '>
-        {/* Левая часть: таблица игроков и кнопка "Добавить бота" */}
+        {/* Левая часть:*/}
         <div className='flex-1 flex flex-col'>
           <h2 className='text-xl font-semibold mb-4'>
             Подключенные игроки и боты
@@ -71,7 +82,6 @@ function CreatorLobby() {
 
         {/* Правая часть */}
         <div className='flex-1 flex flex-col'>
-          {/* Код игры с иконкой копирования */}
           <div className='mb-30'>
             <label className='block text-lg mb-2 font-semibold'>Код игры</label>
             <div className='relative inline-block'>
@@ -88,12 +98,10 @@ function CreatorLobby() {
             </div>
           </div>
 
-          {/* Настройки игры*/}
           <label className='block text-lg mb-2 font-semibold'>
             Настройки игры
           </label>
           <div className='lobby-container p-6 rounded-lg shadow-lg flex-1'>
-            {/* Слайдер стартового капитала */}
             <div className='mb-4'>
               <label className='block text-lg mb-2'>
                 Стартовый капитал: {startCapital}
@@ -109,7 +117,6 @@ function CreatorLobby() {
               />
             </div>
 
-            {/* Выбор продолжительности игры */}
             <div className='mb-4'>
               <p className='text-lg mb-2'>Продолжительность игры:</p>
               <div className='flex space-x-4 '>
@@ -137,7 +144,6 @@ function CreatorLobby() {
             </div>
           </div>
 
-          {/* Кнопка "Начать игру" */}
           <button
             onClick={() => setIsConfirmOpen(true)}
             className='button-green mt-4'
@@ -147,7 +153,6 @@ function CreatorLobby() {
         </div>
       </div>
 
-      {/* Модальное окно для подтверждения */}
       <Modal
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}
@@ -157,6 +162,13 @@ function CreatorLobby() {
           onCancel={() => setIsConfirmOpen(false)}
           onConfirm={handleGame}
         />
+      </Modal>
+      <Modal
+        isOpen={isReturnStartPage}
+        onClose={() => setIsReturnStartPage(false)}
+        title='Выход из игры'
+      >
+        <ReturnStartPageContent onClose={() => setIsReturnStartPage(false)} />
       </Modal>
     </div>
   );
