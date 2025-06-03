@@ -50,6 +50,17 @@ export function showModal(scene, { content, width = 400, height = 300 }) {
   scene.modalGroup.addMultiple([graphics, modalBg]);
 
   if (content) {
+    const maskShape = scene.make.graphics({});
+    maskShape.fillStyle(0xffffff);
+    maskShape.fillRect(
+      centerX - halfWidth,
+      centerY - halfHeight,
+      width,
+      height
+    );
+
+    const mask = maskShape.createGeometryMask();
+    content.setMask(mask);
     content.setPosition(centerX, centerY);
     content.setDepth(2);
     scene.modalGroup.add(content);

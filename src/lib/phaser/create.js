@@ -4,8 +4,10 @@ import { setupCollisions } from './collisions.js';
 import { setupInteractions } from './interactions.js';
 import { setupCoinsCounter } from './coins.js';
 import { createNPC, createCar } from './npc.js';
+import { ApiService } from '@/services/api.js';
 
 export function create() {
+  window.currentGameScene = this;
   const map = createMap(this);
   createLabels(this, map);
   const player = createPlayer(this);
@@ -87,6 +89,14 @@ export function create() {
   setupCollisions(this, map, player, allEntities);
   setupInteractions(this, map, player);
   setupCoinsCounter(this);
+
+  ApiService.get('/player/balance')
+  .then(data => {
+    this.updateCoins(data.balance); // обновляем баланс
+  })
+  .catch(err => {
+    console.error('Ошибка при загрузке баланса:', err);
+  });
 
   this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   this.cameras.main.centerOn(map.widthInPixels / 2, map.heightInPixels / 2);

@@ -6,6 +6,7 @@ import RulesContent from '../components/modals/RulesContent';
 import FAQContent from '../components/modals/FAQContent';
 import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
+import { ApiService } from '../services/api';
 
 function StartPage() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
@@ -32,23 +33,37 @@ function StartPage() {
     if (code.length !== 6) {
       return 'Код должен состоять из 6 символов';
     }
-    // заглушка
-    if (code !== 'AAAAAA') {
-      return 'Неверный код';
-    }
+    // // заглушка
+    // if (code !== 'AAAAAA') {
+    //   return 'Неверный код';
+    // }
     return ''; // ошибок нет
   };
 
-  const handleCreateGame = () => {
-    navigate('/creator-lobby');
+  const handleCreateGame = async () => {
+    try {
+      const { gameSession, player } = await ApiService.post('/session/create');
+      localStorage.setItem('token', player.token);
+      navigate(`/creator-lobby/${gameSession.id}`);
+    } catch (err) {
+      toast.error('Ошибка при создании игры');
+    }
   };
 
-  const handleConnectGame = () => {
+  const handleConnectGame = async () => {
     const error = validateCode(gameCode);
     if (error) {
-      toast.error(error); // теперь показываем ошибку через тост
+      toast.error(error); 
     } else {
-      navigate('/player-lobby');
+      try {
+        const player = await ApiService.post('/player/join', {
+          code: gameCode,
+        });
+        localStorage.setItem('token', player.player.token);
+        navigate(`/player-lobby/${player.player.gameSessionId}`);
+      } catch (err) {
+        toast.error('Не удалось подключиться к игре');
+      }
     }
   };
 
@@ -93,7 +108,7 @@ function StartPage() {
 
       <div className='flex-grow flex items-center justify-center'>
         <h1 className='custom-title custom-title--margin'>
-          ДЕТСКИЙ ФИНАНСОВЫЙ СИМУЛЯТОР
+          В МИРЕ ФИНАНСОВ
         </h1>
       </div>
 

@@ -1,31 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCopy, FaArrowLeft } from 'react-icons/fa';
 import Modal from '../components/ui/elements/Modal';
 import ConfirmStartContent from '../components/modals/ConfirmStartContent';
 import ReturnStartPageContent from '../components/modals/ReturnStartPageContent';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
+import { ApiService } from '../services/api';
+import { useGameSocket } from '../hooks/useGameSocket';
 
 function CreatorLobby() {
   const [startCapital, setStartCapital] = useState(2500);
   const [gameDuration, setGameDuration] = useState('short');
-  const [players, setPlayers] = useState([
-    { type: 'player', name: 'Игрок 1' },
-    { type: 'player', name: 'Игрок 2' },
-    { type: 'bot', name: 'Бот 1' },
-  ]);
-  const gameCode = 'aaaaaa';
+  const [players, setPlayers] = useState([]);
+  const [gameCode, setGameCode] = useState('');
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isReturnStartPage, setIsReturnStartPage] = useState(false);
   const navigate = useNavigate();
+  const { sessionId } = useParams();
 
-  const handleRemove = (index) => {
-    setPlayers(players.filter((_, i) => i !== index));
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const session = await ApiService.get(`/session/info/${sessionId}`);
+        setGameCode(session[0].code);
+
+        const playerList = await ApiService.get(`/session/players/${sessionId}`);
+        setPlayers(playerList.map(p => ({ id: p.id, type: p.isBot ? 'bot' : 'player', name: p.playerName })));
+      } catch (err) {
+        toast.error('Ошибка загрузки сессии или игроков');
+      }
+    };
+
+    fetchSessionData();
+  }, [sessionId]);
+
+  useGameSocket({
+    onSessionClosed: () => {
+      localStorage.removeItem('token');
+      navigate('/');
+    },
+    onLobbyUpdate: (updatedPlayers) => {
+      setPlayers(updatedPlayers.map(p => ({ id: p.id, type: p.isBot ? 'bot' : 'player', name: p.playerName })));
+    },
+  });
+
+  // const handleRemove = (index) => {
+  //   setPlayers(players.filter((_, i) => i !== index));
+  // };
+
+  const handleAddBot = async () => {
+    try {
+      await ApiService.post(`/session/add-bot/${sessionId}`);
+      const playerList = await ApiService.get(`/session/players/${sessionId}`);
+      setPlayers(playerList.map(p => ({ id: p.id, type: p.isBot ? 'bot' : 'player', name: p.playerName })));
+    } catch (err) {
+      toast.error('Не удалось добавить бота');
+    }
+    // const botNumber = players.filter((p) => p.type === 'bot').length + 1;
+    // setPlayers([...players, { type: 'bot', name: `Бот ${botNumber}` }]);
   };
 
-  const handleAddBot = () => {
-    const botNumber = players.filter((p) => p.type === 'bot').length + 1;
-    setPlayers([...players, { type: 'bot', name: `Бот ${botNumber}` }]);
+  const handleRemoveBot = async (playerId) => {
+    try {
+      await ApiService.delete(`/session/delete-bot/${playerId}`);
+      const playerList = await ApiService.get(`/session/players/${sessionId}`);
+      setPlayers(playerList.map(p => ({ 
+        id: p.id,
+        type: p.isBot ? 'bot' : 'player', 
+        name: p.playerName 
+      })));
+      toast.success('Бот удален');
+    } catch (err) {
+      toast.error('Не удалось удалить бота');
+    }
   };
 
   const handleCopyCode = () => {
@@ -33,8 +80,17 @@ function CreatorLobby() {
     toast.success('Код скопирован!');
   };
 
-  const handleGame = () => {
-    navigate('/game');
+  const handleGame = async() => {
+    try {
+      await ApiService.put(`/session/start/${sessionId}`, {
+        seedCapital: startCapital,
+        gameTime: gameDuration === 'short' ? 20 : 36,
+      });
+      navigate(`/game/${sessionId}`);
+    } catch (err) {
+      toast.error('Не удалось начать игру');
+    }
+    // navigate('/game');
   };
 
   return (
@@ -59,18 +115,20 @@ function CreatorLobby() {
             <ul className='space-y-2'>
               {players.map((player, index) => (
                 <li
-                  key={index}
+                  key={player.id}
                   className='player-tile flex justify-between items-center'
                 >
                   <span>
                     {index + 1}. {player.name}
                   </span>
+                  {player.type === 'bot' && (
                   <button
-                    onClick={() => handleRemove(index)}
+                    onClick={() => handleRemoveBot(player.id)}
                     className='text-red-500 hover:text-red-700'
                   >
                     ✕
                   </button>
+                  )}
                 </li>
               ))}
             </ul>

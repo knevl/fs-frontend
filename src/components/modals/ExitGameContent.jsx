@@ -1,11 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ApiService } from '@/services/api.js';
 
 const ExitGameContent = () => {
+  const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  const handleExit = () => {
-    navigate('/game-over');
+  const handleExit = async () => {
+    await ApiService.patch('/player/exit');
+    navigate(`/game-over/${sessionId}`);
   };
 
   return (

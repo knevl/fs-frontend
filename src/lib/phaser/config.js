@@ -10,6 +10,9 @@ export const config = {
       debug: false,
     },
   },
+  dom: {
+    createContainer: true
+  },
   scene: {
     preload: null, // задано в Game.jsx
     create: null, // задано в Game.jsx

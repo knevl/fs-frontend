@@ -1,27 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCopy, FaArrowLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Modal from '../components/ui/elements/Modal';
 import ReturnStartPagePlayerContent from '../components/modals/ReturnStartPagePlayerContent';
 import { toast, Toaster } from 'react-hot-toast';
+import { ApiService } from '../services/api';
+import { useGameSocket } from '../hooks/useGameSocket';
 
 function PlayerLobby() {
-  const players = [
-    { type: 'player', name: 'Игрок 1 - тест 1 тест 1' },
-    { type: 'bot', name: 'Бот 1' },
-  ];
-  const gameCode = 'AAAAAA';
-
+  const [players, setPlayers] = useState([]);
+  const [gameCode, setGameCode] = useState('');
+  const { sessionId } = useParams();
   const navigate = useNavigate();
   const [isReturnStartPagePlayer, setIsReturnStartPagePlayer] = useState(false);
 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const session = await ApiService.get(`/session/info/${sessionId}`);
+        setGameCode(session[0].code);
+
+        const playerList = await ApiService.get(`/session/players/${sessionId}`);
+        setPlayers(playerList.map(p => ({ type: p.isBot ? 'bot' : 'player', name: p.playerName })));
+      } catch (err) {
+        toast.error('Ошибка загрузки данных лобби');
+      }
+    };
+
+    fetchData();
+  }, [sessionId]); 
+  
+  useGameSocket({
+    onSessionClosed: () => {
+      localStorage.removeItem('token');
+      navigate('/');
+    },
+    onLobbyUpdate: (updatedPlayers) => {
+      setPlayers(updatedPlayers.map(p => ({ type: p.isBot ? 'bot' : 'player', name: p.playerName })));
+    },
+    onGameStart: () => {
+      navigate(`/game/${sessionId}`);
+    },
+  });
+  
   const handleCopyCode = () => {
     navigator.clipboard.writeText(gameCode);
     toast.success('Код скопирован!');
-  };
-
-  const handleGame = () => {
-    navigate('/game');
   };
 
   return (

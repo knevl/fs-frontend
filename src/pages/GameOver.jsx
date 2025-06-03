@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import coin from '/images/coin.png';
 import Modal from '../components/ui/elements/Modal';
 import CalculationContent from '../components/modals/CalculationContent';
+import { ApiService } from '../services/api';
 
 const GameOver = () => {
   const navigate = useNavigate();
@@ -11,19 +12,40 @@ const GameOver = () => {
   const [isCalculationOpen, setIsCalculationOpen] = useState(false);
   const [showPlayers, setShowPlayers] = useState(true);
   const [showBots, setShowBots] = useState(true);
+  const { sessionId } = useParams();
+  const [players, setPlayers] = useState([]);
 
-  const players = [
-    { name: 'Игрок 1', isCurrent: true, coins: 1000 },
-    { name: 'Бот 1', isCurrent: false, coins: 800 },
-    { name: 'Игрок 2', isCurrent: false, coins: 1200 },
-    { name: 'Игрок 3', isCurrent: false, coins: 1500 },
-    { name: 'Бот 2', isCurrent: false, coins: 700 },
-    { name: 'Игрок 4', isCurrent: false, coins: 1300 },
-    { name: 'Игрок 5', isCurrent: false, coins: 1100 },
-    { name: 'Бот 3', isCurrent: false, coins: 900 },
-    { name: 'Игрок 6', isCurrent: false, coins: 1400 },
-    { name: 'Игрок 7', isCurrent: false, coins: 1600 },
-  ];
+useEffect(() => {
+  let retryTimeout;
+
+  const fetchResults = async () => {
+    try {
+      const result = await ApiService.get(`/session/results/${sessionId}`);
+
+      if (!result?.ranking?.length) {
+        // Повторить через 3 секунды
+        retryTimeout = setTimeout(fetchResults, 3000);
+        return;
+      }
+
+      setPlayers(result.ranking.map(p => ({
+        name: p.name,
+        coins: p.balance,
+        isCurrent: false,
+      })));
+    } catch (err) {
+      console.error('Ошибка загрузки результатов, пробуем снова...');
+      retryTimeout = setTimeout(fetchResults, 3000);
+    }
+  };
+
+  fetchResults();
+
+  return () => {
+    if (retryTimeout) clearTimeout(retryTimeout);
+  };
+}, [sessionId]);
+
 
   const sortedPlayers = [...players].sort((a, b) => b.coins - a.coins);
 
@@ -85,7 +107,7 @@ const GameOver = () => {
               <span className='flex items-center'>
                 {player.coins}
                 <img src={coin} alt='монета' className='w-6 h-6 ml-2' />
-                <button
+                {/* <button
                   onClick={() => {
                     setIsCalculationOpen(true);
                     setSelectedPlayer(player);
@@ -93,14 +115,14 @@ const GameOver = () => {
                   className='ml-2 text-gray-700'
                 >
                   Подробнее➡️
-                </button>
+                </button> */}
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      {selectedPlayer && (
+      {/* {selectedPlayer && (
         <Modal
           isOpen={isCalculationOpen}
           onClose={() => setSelectedPlayer(null)}
@@ -108,9 +130,9 @@ const GameOver = () => {
         >
           <CalculationContent player={selectedPlayer} />
         </Modal>
-      )}
+      )} */}
 
-      <button onClick={() => navigate('/')} className='button-green mb-3'>
+      <button onClick={() => {localStorage.removeItem('token'); navigate('/')}} className='button-green mb-3'>
         Вернуться на главный экран
       </button>
     </div>
