@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ControlsContent from './ControlsContent';
 
 const AccordionItem = ({ title, children, isOpen, onToggle }) => {
   return (
@@ -20,6 +21,10 @@ const HelpContent = () => {
   const [openSection, setOpenSection] = useState(null); // Храним индекс открытой секции
 
   const sections = [
+    {
+      title: 'Управление персонажем',
+      content: <ControlsContent />,
+    },
     {
       title: 'Что такое предприятие и как его улучшить?',
       content: (

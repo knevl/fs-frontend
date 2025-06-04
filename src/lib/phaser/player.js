@@ -1,7 +1,7 @@
 export function createPlayer(scene) {
   const player = scene.physics.add.sprite(400, 300, 'player_front_stay');
   player.setCollideWorldBounds(true);
-  player.setScale(1.2);
+  player.setScale(1.5);
 
   scene.anims.create({
     key: 'left_walk',

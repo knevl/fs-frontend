@@ -70,6 +70,12 @@ a:hover {
   flex-direction: column;
   justify-content: space-between;
 }
+.container-game__left {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .timer {
   border-radius: 8px;
   border: 2px solid #989aaf;
@@ -409,4 +415,40 @@ h1 {
   box-shadow: inset 0 0 0 2px #ffffff;
   padding: 1rem;
   border-radius: 8px;
+}
+.volume-slider {
+  appearance: none;
+  width: 150px;
+  height: 8px;
+  background: #ffffff;
+  border: 2px solid #146587;
+  border-radius: 0;
+  cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #2fd792;
+  border: 2px solid #046d41;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px #64ff73;
+  cursor: pointer;
+}
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon-button img {
+  width: 150px;
+  height: 150px;
+  transition: transform 0.2s ease;
+}
+
+.icon-button:hover img {
+  transform: scale(1.1);
 }
