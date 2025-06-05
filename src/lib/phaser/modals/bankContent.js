@@ -5,22 +5,49 @@ export async function createBankContent(scene, sessionDuration = 20) {
   const container = scene.add.container(0, 0);
   const tabTitles = ['Вклады', 'Кредит'];
   let activeTab = 'Вклады';
+
   const tabs = scene.add.container(0, -170);
+  const tabRects = [];
 
   tabTitles.forEach((title, i) => {
-    const tab = scene.add.text(-100 + i * 200, 0, title, {
-      fontSize: '16px',
-      color: '#000',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    const tabContainer = scene.add.container(-100 + i * 200, 0);
 
-    tab.on('pointerdown', () => {
+    const tabRect = scene.add
+      .rectangle(0, 10, 100, 30, 0x1c9fd7)
+      .setStrokeStyle(2, 0x167da8)
+      .setInteractive({ useHandCursor: true })
+      .setOrigin(0.5);
+
+    const tabText = scene.add
+      .text(0, 10, title, {
+        fontSize: '14px',
+        color: '#ffffff',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5);
+
+    tabRect.on('pointerdown', () => {
       activeTab = title;
+      updateTabStyles();
       renderTab();
     });
 
-    tabs.add(tab);
+    tabContainer.add([tabRect, tabText]);
+    tabs.add(tabContainer);
+    tabRects.push({ title, rect: tabRect });
   });
+
+  function updateTabStyles() {
+    tabRects.forEach(({ title, rect }) => {
+      if (activeTab === title) {
+        rect.setStrokeStyle(2, 0xffffff);
+      } else {
+        rect.setStrokeStyle(2, 0x167da8);
+      }
+    });
+  }
+
+  updateTabStyles(); // Инициализация стилей
   container.add(tabs);
 
   const contentContainer = scene.add.container(0, 0);
@@ -42,27 +69,36 @@ export async function createBankContent(scene, sessionDuration = 20) {
         // Маска
         const maskShape = scene.make.graphics({});
         maskShape.fillStyle(0xffffff);
-        maskShape.fillRect(-150, -100, 300, 200); 
-
+        maskShape.fillRect(-150, -100, 300, 200);
         const mask = maskShape.createGeometryMask();
-        //scrollContainer.setMask(mask);
+        // scrollContainer.setMask(mask);
 
-        maskShape.setScrollFactor(0);
-        contentContainer.add(maskShape);
         contentContainer.add(scrollContainer);
-
 
         let offsetY = -90;
         deposits.forEach((deposit) => {
           const card = scene.add.container(0, offsetY);
-          const bg = scene.add.rectangle(0, 0, 300, 70, 0xf0f0f0).setStrokeStyle(2, 0x999999);
-          const text = scene.add.text(-130, -20, `Сумма: ${deposit.amount}\nСрок: ${deposit.period} месяцев\n%: ${deposit.percentage}`, {
-            fontSize: '12px', color: '#000', fontFamily: 'Arial'
-          });
+          const bg = scene.add
+            .rectangle(0, 0, 300, 70, 0xffffff)
+            .setStrokeStyle(2, 0x999999);
+          const text = scene.add.text(
+            -130,
+            -20,
+            `Сумма: ${deposit.amount}\nСрок: ${deposit.period} месяцев\n%: ${deposit.percentage}`,
+            {
+              fontSize: '12px',
+              color: '#000',
+              fontFamily: 'Arial',
+            }
+          );
           const action = deposit.datePayout ? 'Закрыт' : 'Закрыть';
-          const actionText = scene.add.text(100, 0, action, {
-            fontSize: '12px', color: deposit.datePayout ? '#888' : '#0077aa', fontFamily: 'Arial'
-          }).setOrigin(0.5);
+          const actionText = scene.add
+            .text(100, 0, action, {
+              fontSize: '12px',
+              color: deposit.datePayout ? '#888' : '#0077aa',
+              fontFamily: 'Arial',
+            })
+            .setOrigin(0.5);
 
           if (!deposit.datePayout) {
             actionText.setInteractive({ useHandCursor: true });
@@ -72,9 +108,12 @@ export async function createBankContent(scene, sessionDuration = 20) {
                 toast.success('Вклад закрыт');
                 renderTab();
               } catch (err) {
-                  const message = err?.response?.data?.message || err?.message || 'Не удалось закрыть вклад';
-                  toast.error(message);
-                }
+                const message =
+                  err?.response?.data?.message ||
+                  err?.message ||
+                  'Не удалось закрыть вклад';
+                toast.error(message);
+              }
             });
           }
 
@@ -83,8 +122,17 @@ export async function createBankContent(scene, sessionDuration = 20) {
           offsetY += 90;
         });
 
-        const upArrow = scene.add.text(140, -110, '▲', { fontSize: '20px', color: '#000' }).setInteractive();
-        const downArrow = scene.add.text(140, 110, '▼', { fontSize: '20px', color: '#000' }).setInteractive();
+        const upArrow = scene.add
+          .image(190, -110, 'arrow-up')
+          .setInteractive({ useHandCursor: true })
+          .setScale(1)
+          .setOrigin(1);
+
+        const downArrow = scene.add
+          .image(190, 120, 'arrow-down')
+          .setInteractive({ useHandCursor: true })
+          .setScale(1)
+          .setOrigin(1);
 
         upArrow.on('pointerdown', () => {
           scrollContainer.y = Math.min(scrollContainer.y + 20, 0);
@@ -93,15 +141,27 @@ export async function createBankContent(scene, sessionDuration = 20) {
           scrollContainer.y -= 20;
         });
 
-        contentContainer.add(scrollContainer);
         contentContainer.add(upArrow);
         contentContainer.add(downArrow);
 
-        const openBtn = scene.add.text(0, 140, 'Открыть вклад', {
-          fontSize: '14px', color: '#0077aa', fontFamily: 'Arial'
-        }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+        const openBtnBg = scene.add
+          .rectangle(0, 140, 120, 30, 0xee2747)
+          .setStrokeStyle(2, 0x871023)
+          .setOrigin(0.5)
+          .setInteractive({ useHandCursor: true });
 
-        openBtn.on('pointerdown', () => renderDepositForm());
+        const openBtnText = scene.add
+          .text(0, 140, 'Открыть вклад', {
+            fontSize: '14px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+          })
+          .setOrigin(0.5);
+
+        const openBtn = scene.add.container(0, 0, [openBtnBg, openBtnText]);
+
+        openBtnBg.on('pointerdown', () => renderDepositForm());
+
         contentContainer.add(openBtn);
       } catch (err) {
         toast.error('Ошибка при загрузке вкладов');
@@ -112,13 +172,27 @@ export async function createBankContent(scene, sessionDuration = 20) {
 
         if (loan) {
           const card = scene.add.container(0, 0);
-          const bg = scene.add.rectangle(0, 0, 300, 70, 0xf0f0f0).setStrokeStyle(2, 0x999999);
-          const text = scene.add.text(-120, -20, `Сумма: ${loan.amount}\nСрок: ${loan.period} мес.\n%: ${loan.interestRate}\nШтраф: ${loan.fine}`, {
-            fontSize: '12px', color: '#000', fontFamily: 'Arial'
-          });
-          const repayBtn = scene.add.text(100, 0, 'Погасить', {
-            fontSize: '12px', color: '#0077aa', fontFamily: 'Arial'
-          }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+          const bg = scene.add
+            .rectangle(0, 0, 300, 70, 0xffffff)
+            .setStrokeStyle(2, 0x999999);
+          const text = scene.add.text(
+            -120,
+            -20,
+            `Сумма: ${loan.amount}\nСрок: ${loan.period} мес.\n%: ${loan.interestRate}\nШтраф: ${loan.fine}`,
+            {
+              fontSize: '12px',
+              color: '#000',
+              fontFamily: 'Arial',
+            }
+          );
+          const repayBtn = scene.add
+            .text(100, 0, 'Погасить', {
+              fontSize: '12px',
+              color: '#0077aa',
+              fontFamily: 'Arial',
+            })
+            .setOrigin(0.5)
+            .setInteractive({ useHandCursor: true });
 
           repayBtn.on('pointerdown', async () => {
             try {
@@ -133,15 +207,34 @@ export async function createBankContent(scene, sessionDuration = 20) {
           card.add([bg, text, repayBtn]);
           contentContainer.add(card);
         } else {
-          const noLoan = scene.add.text(0, -40, 'У вас нет кредитов', {
-            fontSize: '14px', color: '#000', fontFamily: 'Arial'
-          }).setOrigin(0.5);
+          const noLoan = scene.add
+            .text(0, -40, 'У вас нет кредитов', {
+              fontSize: '14px',
+              color: '#000',
+              fontFamily: 'Arial',
+            })
+            .setOrigin(0.5);
 
-          const takeLoanBtn = scene.add.text(0, 40, 'Взять кредит', {
-            fontSize: '14px', color: '#0077aa', fontFamily: 'Arial'
-          }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+          const takeLoanBtnBg = scene.add
+            .rectangle(0, 40, 120, 30, 0xee2747)
+            .setStrokeStyle(2, 0x871023)
+            .setOrigin(0.5)
+            .setInteractive({ useHandCursor: true });
 
-          takeLoanBtn.on('pointerdown', () => renderLoanForm());
+          const takeLoanBtnText = scene.add
+            .text(0, 40, 'Взять кредит', {
+              fontSize: '14px',
+              color: '#ffffff',
+              fontFamily: 'Arial',
+            })
+            .setOrigin(0.5);
+
+          const takeLoanBtn = scene.add.container(0, 0, [
+            takeLoanBtnBg,
+            takeLoanBtnText,
+          ]);
+
+          takeLoanBtnBg.on('pointerdown', () => renderLoanForm());
 
           contentContainer.add(noLoan);
           contentContainer.add(takeLoanBtn);
@@ -157,9 +250,9 @@ export async function createBankContent(scene, sessionDuration = 20) {
 
     const formEl = document.createElement('form');
     formEl.innerHTML = `
-      <input type="number" name="amount" placeholder="Сумма" style="margin-bottom:10px"><br>
-      <input type="number" name="period" placeholder="Срок (мес)" style="margin-bottom:10px"><br>
-      <button type="submit">Подтвердить</button>
+      <input type="number" name="amount" placeholder="Сумма" style="background-color: #ffffff; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px;"><br>
+      <input type="number" name="period" placeholder="Срок (мес)" style="background-color: #ffffff; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px;"><br>
+      <button type="submit" style="background-color: #ee2747; color: #ffffff; border: 2px solid #871023; padding: 5px 10px;">Подтвердить</button>
     `;
 
     const form = scene.add.dom(0, 0, formEl);
@@ -172,12 +265,17 @@ export async function createBankContent(scene, sessionDuration = 20) {
       if (!amount || !period) return toast.error('Введите сумму и срок');
 
       try {
-        await ApiService.post('/deposit/create', { amount, period, percentage });
+        await ApiService.post('/deposit/create', {
+          amount,
+          period,
+          percentage,
+        });
         toast.success('Вклад открыт');
         renderTab();
       } catch (err) {
-          const message = err?.response?.data?.message || err?.message || 'Ошибка при создании';
-          toast.error(message);
+        const message =
+          err?.response?.data?.message || err?.message || 'Ошибка при создании';
+        toast.error(message);
       }
     });
 
@@ -189,9 +287,9 @@ export async function createBankContent(scene, sessionDuration = 20) {
 
     const formEl = document.createElement('form');
     formEl.innerHTML = `
-      <input type="number" name="amount" placeholder="Сумма" style="margin-bottom:10px"><br>
-      <input type="number" name="period" placeholder="Срок (мес)" style="margin-bottom:10px"><br>
-      <button type="submit">Подтвердить</button>
+      <input type="number" name="amount" placeholder="Сумма" style="background-color: #ffffff; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px;"><br>
+      <input type="number" name="period" placeholder="Срок (мес)" style="background-color: #ffffff; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px;"><br>
+      <button type="submit" style="background-color: #ee2747; color: #ffffff; border: 2px solid #871023; padding: 5px 10px;">Подтвердить</button>
     `;
 
     const form = scene.add.dom(0, 0, formEl);
@@ -204,11 +302,17 @@ export async function createBankContent(scene, sessionDuration = 20) {
       if (!amount || !period) return toast.error('Введите сумму и срок');
 
       try {
-        await ApiService.post('/loan/take', { amount, period, interestRate: percentage });
+        await ApiService.post('/loan/take', {
+          amount,
+          period,
+          interestRate: percentage,
+        });
         toast.success('Кредит выдан');
         renderTab();
       } catch (err) {
-        toast.error(err.response?.data?.message || 'Ошибка при оформлении кредита');
+        toast.error(
+          err.response?.data?.message || 'Ошибка при оформлении кредита'
+        );
       }
     });
 

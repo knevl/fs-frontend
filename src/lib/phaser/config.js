@@ -11,11 +11,12 @@ export const config = {
     },
   },
   dom: {
-    createContainer: true
+    createContainer: true,
   },
   scene: {
     preload: null, // задано в Game.jsx
     create: null, // задано в Game.jsx
   },
   pixelArt: false,
+  roundPixels: true,
 };

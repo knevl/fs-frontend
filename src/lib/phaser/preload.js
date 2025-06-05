@@ -3,7 +3,10 @@ export function preload() {
   this.load.image('tilemap_packed', '/maps/tilemap_packed.png');
   this.load.image('tilemap_packed1', '/maps/tilemap_packed1.png');
   // player
-  this.load.image('player_left_stay', '/images/characters/player_left_stay.png');
+  this.load.image(
+    'player_left_stay',
+    '/images/characters/player_left_stay.png'
+  );
   this.load.image('player_left_1', '/images/characters/player_left_1.png');
   this.load.image('player_left_2', '/images/characters/player_left_2.png');
   this.load.image(
@@ -12,7 +15,10 @@ export function preload() {
   );
   this.load.image('player_front_1', '/images/characters/player_front_1.png');
   this.load.image('player_front_2', '/images/characters/player_front_2.png');
-  this.load.image('player_back_stay', '/images/characters/player_back_stay.png');
+  this.load.image(
+    'player_back_stay',
+    '/images/characters/player_back_stay.png'
+  );
   this.load.image('player_back_1', '/images/characters/player_back_1.png');
   this.load.image('player_back_2', '/images/characters/player_back_2.png');
   this.load.image(
@@ -60,4 +66,9 @@ export function preload() {
   this.load.image('car1_right', '/images/cars/car1_right.png');
   this.load.image('car1_front', '/images/cars/car1_front.png');
   this.load.image('car1_back', '/images/cars/car1_back.png');
+  // стрелки
+  this.load.image('arrow-left', '/icons/arrow_basic_w.png');
+  this.load.image('arrow-right', '/icons/arrow_basic_e.png');
+  this.load.image('arrow-up', '/icons/arrow_basic_n.png');
+  this.load.image('arrow-down', '/icons/arrow_basic_s.png');
 }

@@ -25,7 +25,7 @@ export async function createCompanyContent(scene) {
     container.add(errorText);
     return container;
   }
-  
+
   if (companies.length == 0) {
     const errorText = scene.add.text(0, 0, 'У вас нет предприятий', {
       fontSize: '16px',
@@ -36,49 +36,61 @@ export async function createCompanyContent(scene) {
     container.add(errorText);
     return container;
   }
-  
+
   const scrollContainer = scene.add.container(0, 0);
-  let offsetX = -companies.length * 130 / 2;
+  let offsetX = (-companies.length * 130) / 2;
 
   companies.forEach((company, index) => {
     const card = scene.add.container(offsetX + index * 140, 0);
 
-    const bg = scene.add.rectangle(0, 0, 130, 200, 0xf0f0f0)
-      .setStrokeStyle(2, 0x999999);
+    const bg = scene.add
+      .rectangle(0, 0, 130, 200, 0xffffff)
+      .setStrokeStyle(2, 0x989aaf);
     card.add(bg);
 
     const icon = scene.add.circle(0, -70, 20, 0xcccccc);
     card.add(icon);
 
-    const nameText = scene.add.text(0, -45, company.companyName, {
-      fontSize: '14px',
-      color: '#000',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 120 },
-    }).setOrigin(0.5);
+    const nameText = scene.add
+      .text(0, -45, company.companyName, {
+        fontSize: '14px',
+        color: '#000',
+        fontFamily: 'Arial',
+        align: 'center',
+        wordWrap: { width: 120 },
+      })
+      .setOrigin(0.5);
     card.add(nameText);
 
-    const levelText = scene.add.text(0, -20, `Уровень: ${company.level}`, {
-      fontSize: '12px',
-      color: '#333',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5);
+    const levelText = scene.add
+      .text(0, -20, `Уровень: ${company.level}`, {
+        fontSize: '12px',
+        color: '#333',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5);
     card.add(levelText);
 
-    const income = Math.floor(company.companyType.baseIncome * company.incomeCoEfficient * 100);
-    const incomeText = scene.add.text(0, 0, `Доход: ${income}`, {
-      fontSize: '12px',
-      color: '#333',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5);
+    const income = Math.floor(
+      company.companyType.baseIncome * company.incomeCoEfficient * 100
+    );
+    const incomeText = scene.add
+      .text(0, 0, `Доход: ${income}`, {
+        fontSize: '12px',
+        color: '#333',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5);
     card.add(incomeText);
 
-    const repairBtn = scene.add.text(0, 30, 'Починить', {
-      fontSize: '12px',
-      color: company.isBroken ? '#007700' : '#888888',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    const repairBtn = scene.add
+      .text(0, 30, company.isBroken ? 'Починить' : 'Поломок нет', {
+        fontSize: '14px',
+        color: company.isBroken ? '#007700' : '#888888',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
 
     if (!company.isBroken) {
       repairBtn.disableInteractive();
@@ -95,11 +107,14 @@ export async function createCompanyContent(scene) {
     }
     card.add(repairBtn);
 
-    const upgradeBtn = scene.add.text(0, 50, 'Улучшить', {
-      fontSize: '12px',
-      color: '#0077aa',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    const upgradeBtn = scene.add
+      .text(0, 60, 'Улучшить', {
+        fontSize: '14px',
+        color: '#48E670',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
 
     upgradeBtn.on('pointerdown', async () => {
       try {
@@ -109,10 +124,13 @@ export async function createCompanyContent(scene) {
           company.level = info.level;
           company.incomeCoEfficient = info.incomeCoEfficient;
           levelText.setText(`Уровень: ${company.level}`);
-          const income = Math.floor(company.companyType.baseIncome * company.incomeCoEfficient * 100);
+          const income = Math.floor(
+            company.companyType.baseIncome * company.incomeCoEfficient * 100
+          );
           incomeText.setText(`Доход: ${income}`);
           if (company.level >= 3) {
-            upgradeBtn.setVisible(false);
+            //upgradeBtn.setVisible(false);
+            upgradeBtn.destroy();
           }
         }
       } catch {
@@ -123,11 +141,14 @@ export async function createCompanyContent(scene) {
       card.add(upgradeBtn);
     }
 
-    const sellBtn = scene.add.text(0, 70, 'Продать', {
-      fontSize: '12px',
-      color: '#aa5500',
-      fontFamily: 'Arial',
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    const sellBtn = scene.add
+      .text(0, 80, 'Продать', {
+        fontSize: '14px',
+        color: '#EE2747',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
 
     sellBtn.on('pointerdown', async () => {
       try {
@@ -145,19 +166,18 @@ export async function createCompanyContent(scene) {
   scrollContainer.setY(20);
   container.add(scrollContainer);
 
-  // Стрелки прокрутки
   const scrollSpeed = 40;
   const maxOffset = companies.length * 140 - 300;
 
-  const leftArrow = scene.add.text(-200, 10, '<', {
-    fontSize: '32px',
-    color: '#000',
-  }).setInteractive({ useHandCursor: true });
+  const leftArrow = scene.add
+    .image(-200, 10, 'arrow-left')
+    .setDisplaySize(32, 32)
+    .setInteractive({ useHandCursor: true });
 
-  const rightArrow = scene.add.text(180, 10, '>', {
-    fontSize: '32px',
-    color: '#000',
-  }).setInteractive({ useHandCursor: true });
+  const rightArrow = scene.add
+    .image(200, 10, 'arrow-right')
+    .setDisplaySize(32, 32)
+    .setInteractive({ useHandCursor: true });
 
   leftArrow.on('pointerdown', () => {
     scrollContainer.x = Math.min(scrollContainer.x + scrollSpeed, 0);

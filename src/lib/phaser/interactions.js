@@ -47,7 +47,7 @@ export function setupInteractions(scene, map, player) {
 
     scene.modalGroup = scene.add.group();
 
-    scene.input.keyboard.on('keydown-SPACE', async () =>  {
+    scene.input.keyboard.on('keydown-SPACE', async () => {
       const overlappingZone = interactionZones.find(
         (zone) => zone.isOverlapping
       );
@@ -62,16 +62,16 @@ export function setupInteractions(scene, map, player) {
             break;
           case 'bank':
             content = await createBankContent(scene);
-            width = 500;
+            width = 400;
             height = 400;
             break;
           case 'stock':
             content = await createStockContent(scene, scene.sessionId);
-            width = 600;
-            height = 350;
+
             break;
           case 'company':
             content = await createCompanyContent(scene);
+            width = 450;
             break;
           case 'news':
             content = await createNewsContent(scene);
