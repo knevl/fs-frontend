@@ -61,7 +61,6 @@ export async function createBankContent(scene, sessionDuration = 20) {
     if (activeTab === 'Вклады') {
       try {
         const deposits = await ApiService.get('/deposit/player');
-        console.log('Получены вклады:', deposits);
 
         const scrollContainer = scene.add.container(0, 0);
         scrollContainer.setPosition(0, 0);

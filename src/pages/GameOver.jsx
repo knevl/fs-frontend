@@ -22,22 +22,20 @@ useEffect(() => {
     try {
       const result = await ApiService.get(`/session/results/${sessionId}`);
 
-      if (!result?.ranking?.length) {
+      if (!result?.results?.length) {
         // Повторить через 3 секунды
         retryTimeout = setTimeout(fetchResults, 3000);
         return;
       }
 
-      setPlayers(result.ranking.map(p => ({
-        name: p.name,
-        coins: p.balance,
-        isCurrent: false,
-      })));
-    } catch (err) {
-      console.error('Ошибка загрузки результатов, пробуем снова...');
-      retryTimeout = setTimeout(fetchResults, 3000);
-    }
-  };
+      setPlayers(result.results);
+      } catch (err) {
+        console.error('Ошибка загрузки результатов, пробуем снова...');
+        retryTimeout = setTimeout(fetchResults, 3000);
+        console.log(result);
+        console.log(players)
+      }
+    };
 
   fetchResults();
 
@@ -47,10 +45,10 @@ useEffect(() => {
 }, [sessionId]);
 
 
-  const sortedPlayers = [...players].sort((a, b) => b.coins - a.coins);
+  const sortedPlayers = [...players].sort((a, b) => b.finalBalance - a.finalBalance);
 
   const filteredPlayers = sortedPlayers.filter((player) => {
-    if (player.name.startsWith('Бот')) {
+    if (player.playerName?.startsWith('Бот')) {
       return showBots;
     } else {
       return showPlayers;
@@ -101,36 +99,39 @@ useEffect(() => {
               className='player-tile flex justify-between items-center p-4 bg-white rounded shadow'
             >
               <span>
-                {getMedal(index)} {index + 1}. {player.name}
+                {getMedal(index)} {index + 1}. {player.playerName}
               </span>
               <span>{player.isCurrent ? 'Это ты! Молодец😉' : ''}</span>
               <span className='flex items-center'>
-                {player.coins}
+                {player.finalBalance}
                 <img src={coin} alt='монета' className='w-6 h-6 ml-2' />
-                {/* <button
+                {<button
                   onClick={() => {
-                    setIsCalculationOpen(true);
                     setSelectedPlayer(player);
+                    setIsCalculationOpen(true);
                   }}
                   className='ml-2 text-gray-700'
                 >
                   Подробнее➡️
-                </button> */}
+                </button>}
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* {selectedPlayer && (
+      {selectedPlayer && (
         <Modal
           isOpen={isCalculationOpen}
-          onClose={() => setSelectedPlayer(null)}
-          title='Как расчитывался итоговый баланс?'
+          onClose={() => {
+            setSelectedPlayer(null);
+            setIsCalculationOpen(false);
+          }}
+          title={`Расчёт: ${selectedPlayer.playerName}`}
         >
           <CalculationContent player={selectedPlayer} />
         </Modal>
-      )} */}
+      )}
 
       <button onClick={() => {localStorage.removeItem('token'); navigate('/')}} className='button-green mb-3'>
         Вернуться на главный экран

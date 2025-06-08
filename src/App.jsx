@@ -14,6 +14,7 @@ import BagContent from './components/modals/BagContent';
 import './index.css';
 import { useGameSocket } from './hooks/useGameSocket';
 import { ApiService } from './services/api';
+import { toast, Toaster } from 'react-hot-toast';
 
 function GameWrapper() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
@@ -34,6 +35,29 @@ function GameWrapper() {
     onTimeUpdate: setGameTime,
     onGameOver: () => {
       navigate(`/game-over/${sessionId}`);
+    },
+    onGameOver: () => {
+      navigate(`/game-over/${sessionId}`);
+    },
+
+    onPlayerAction: ({ message }) => {
+      toast.success(message, { id: `action-${message}` });
+    },
+    onPlayerNotification: ({ message }) => {
+      toast.success(message, { id: `action-${message}` });
+    },
+
+    onNewsNotification: ({ message }) => {
+      toast(message, {
+        id: `news-${message}`,
+        icon: '📰',
+        style: {
+          border: '2px solid rgba(153, 255, 243, 0.97)',
+          padding: '12px',
+          color: '#92400e',
+          background: '#fef3c7',
+        },
+      });
     },
   });
 
@@ -91,6 +115,7 @@ function GameWrapper() {
 
   return (
     <div className='container app-background'>
+    <Toaster position='top-right' reverseOrder={false} toastOptions={{ duration: 20000 }} />
       <div>
         <h1 className='custom-title '>В МИРЕ ФИНАНСОВ</h1>
       </div>

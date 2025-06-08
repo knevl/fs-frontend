@@ -71,4 +71,26 @@ export function preload() {
   this.load.image('arrow-right', '/icons/arrow_basic_e.png');
   this.load.image('arrow-up', '/icons/arrow_basic_n.png');
   this.load.image('arrow-down', '/icons/arrow_basic_s.png');
+
+  // иконки
+  this.load.image('icon-metal', '/icons/metal.png');
+  this.load.image('icon-fabric', '/icons/fabric.png');
+  this.load.image('icon-mechanism', '/icons/mechanism.png');
+  this.load.image('icon-food', '/icons/food.png');
+  this.load.image('icon-plastic', '/icons/plastic.png');
+  this.load.image('icon-chips', '/icons/chips.png');
+
+  this.load.image('icon-clothing-store', '/icons/clothing-store.png');
+  this.load.image('icon-bakery', '/icons/bakery.png');
+  this.load.image('icon-auto-repair', '/icons/auto-repair.png');
+  this.load.image('icon-electronics-factory', '/icons/electronics-factory.png');
+  this.load.image('icon-restaurant', '/icons/restaurant.png');
+  this.load.image('icon-toy-store', '/icons/toy-store.png');
+  this.load.image('icon-farm', '/icons/farm.png');
+  this.load.image('icon-beauty-salon', '/icons/beauty-salon.png');
+  this.load.image('icon-it-startup', '/icons/it-startup.png');
+  this.load.image('icon-car-factory', '/icons/car-factory.png');
+  this.load.image('icon-bank', '/icons/bank.png');
+  this.load.image('icon-construction-company', '/icons/construction-company.png');
+  this.load.image('icon-food-delivery', '/icons/food-delivery.png');
 }

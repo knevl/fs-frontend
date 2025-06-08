@@ -56,7 +56,7 @@ export async function createNewsContent(scene) {
 
     // блок под новость
     const blockContainer = scene.add.container(0, offsetY);
-
+    
     // Фон новости
     const background = scene.add
       .rectangle(0, 0, 320, 100, 0xffffff)
@@ -85,6 +85,40 @@ export async function createNewsContent(scene) {
 
     const blockHeight = newsText.height + timeText.height + 70;
     background.height = blockHeight;
+
+    // Подсказка 
+    const tooltip = scene.add.text(0, -20, '', {
+      fontSize: '12px',
+      backgroundColor: '#fffbe6',
+      color: '#92400e',
+      padding: { x: 6, y: 3 },
+      fontFamily: 'Arial',
+      align: 'center',
+    })
+    .setOrigin(0.5)
+    .setVisible(false)
+    .setDepth(100);
+
+    scene.add.existing(tooltip);
+
+    const eff = newsItem.news.effectCoEfficient;
+    const effectText = eff > 1
+      ? 'Стоимость акций и прибыль компаний увеличилась, стоит задуматься о продаже акций или об открытии нового предприятия'
+      : eff < 1
+      ? 'Стоимость акций и прибыль компаний снизилась, следует быть отсторожнее с инвестициями'
+      : 'Нейтральное влияние';
+
+    // Показывать подсказку при наведении
+    background.setInteractive();
+    background.on('pointerover', (pointer) => {
+      tooltip.setText(effectText);
+      tooltip.setPosition(pointer.worldX, pointer.worldY - 20);
+      tooltip.setVisible(true);
+    });
+
+    background.on('pointerout', () => {
+      tooltip.setVisible(false);
+    });
 
     blockContainer.add([background, newsText, timeText]);
     scrollContainer.add(blockContainer);

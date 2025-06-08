@@ -6,9 +6,9 @@ import { create } from './lib/phaser/create';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGameSocket } from './hooks/useGameSocket';
 
+
 const Game = () => {
   const { sessionId } = useParams();
-  const navigate = useNavigate();
   const gameRef = useRef(null);
 
   useGameSocket({
@@ -16,10 +16,7 @@ const Game = () => {
       if (window.currentGameScene && window.currentGameScene.updateCoins) {
         window.currentGameScene.updateCoins(newBalance);
       }
-    },
-    onGameOver: () => {
-      navigate(`/game-over/${sessionId}`);
-    },
+    }
   });
 
   useEffect(() => {

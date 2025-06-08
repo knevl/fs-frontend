@@ -1,6 +1,22 @@
 import { ApiService } from '../../../services/api';
 
 export async function createCompanyContent(scene) {
+  const companyIconMap = {
+    'Лавка одежды': 'clothing-store',
+    'Пекарня': 'bakery',
+    'Автомастерская': 'auto-repair',
+    'Фабрика электроники': 'electronics-factory',
+    'Ресторан': 'restaurant',
+    'Магазин игрушек': 'toy-store',
+    'Ферма': 'farm',
+    'Салон красоты': 'beauty-salon',
+    'IT-компания(стартап)': 'it-startup',
+    'Завод по производству машин': 'car-factory',
+    'Банк': 'bank',
+    'Строительная компания': 'construction-company',
+    'Доставка еды': 'food-delivery',
+  };
+
   const container = scene.add.container(0, 0);
   const title = scene.add.text(0, -130, 'Мои предприятия:', {
     fontSize: '16px',
@@ -48,11 +64,13 @@ export async function createCompanyContent(scene) {
       .setStrokeStyle(2, 0x989aaf);
     card.add(bg);
 
-    const icon = scene.add.circle(0, -70, 20, 0xcccccc);
-    card.add(icon);
+    const iconKey = 'icon-' + (companyIconMap[company.companyType.typeName] || 'default');
+    const iconImage = scene.add.image(0, -70, iconKey).setDisplaySize(40, 40);
+    card.add(iconImage);
+
 
     const nameText = scene.add
-      .text(0, -45, company.companyName, {
+      .text(0, -40, company.companyName, {
         fontSize: '14px',
         color: '#000',
         fontFamily: 'Arial',

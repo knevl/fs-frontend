@@ -2,6 +2,16 @@ import { ApiService } from '../../../services/api';
 import { toast } from 'react-hot-toast';
 
 export async function createShopContent(scene, sessionId) {
+  // Список ресурсов с иконками
+  const resourceIconMap = {
+    'Металл': 'metal',
+    'Ткань': 'fabric',
+    'Механизм': 'mechanism',
+    'Продукты': 'food',
+    'Пластик': 'plastic',
+    'Чипы': 'chips',
+  };
+
   const container = scene.add.container(0, 0);
   const tabTitles = ['Магазин', 'Мои ресурсы'];
   let activeTab = 'Магазин';
@@ -105,14 +115,15 @@ export async function createShopContent(scene, sessionId) {
         .setStrokeStyle(2, 0x999999);
       card.add(bg);
 
-      const icon = scene.add.circle(0, -50, 20, 0xcccccc);
-      card.add(icon);
-
       const name = isMarket
         ? res.resource?.resourceName || 'Неизвестно'
         : res.resourceName;
       const quantity = isMarket ? res.quantity : res.amount;
       const cost = isMarket ? res.resource?.resourCecost : res.cost;
+
+      const iconKey = 'icon-' + (resourceIconMap[name] || 'default');
+      const iconImage = scene.add.image(0, -50, iconKey).setDisplaySize(40, 40);
+      card.add(iconImage);
 
       const nameText = scene.add
         .text(0, -20, name, {
